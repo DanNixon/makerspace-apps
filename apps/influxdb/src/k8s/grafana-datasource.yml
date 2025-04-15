@@ -1,0 +1,23 @@
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: grafana-datasource-influxdb
+  namespace: influxdb
+  labels:
+    grafana_datasource: "1"
+stringData:
+  influxdb.yaml: |
+    apiVersion: 1
+
+    datasources:
+      - name: InfluxDB
+        type: influxdb
+        url: http://influxdb.influxdb.svc.cluster.local.:8086
+        jsonData:
+          version: Flux
+          organization: Maker Space
+          defaultBucket: Default
+          tlsSkipVerify: true
+        secureJsonData:
+          token: ref+sops://src/secrets.yml#/grafana_token

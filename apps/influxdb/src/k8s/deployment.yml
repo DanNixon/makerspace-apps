@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  namespace: influxdb
+  labels:
+    app.kubernetes.io/name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: influxdb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: docker.io/library/influxdb:2.7.11
+          ports:
+            - name: influxdb-http
+              containerPort: 8086
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/influxdb2
+              name: influxdb-data
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  selector:
+    app.kubernetes.io/name: influxdb
+  ports:
+    - port: 8086
+      protocol: TCP
+      targetPort: influxdb-http
