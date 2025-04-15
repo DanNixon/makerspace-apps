@@ -1,0 +1,89 @@
+#
+# This is a generated file!
+#
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb
+  namespace: influxdb
+  labels:
+    app.kubernetes.io/name: influxdb
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: influxdb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: influxdb
+    spec:
+      containers:
+        - name: influxdb
+          image: docker.io/library/influxdb:2.7.11
+          ports:
+            - name: influxdb-http
+              containerPort: 8086
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/influxdb2
+              name: influxdb-data
+      volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-data
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb
+  namespace: influxdb
+spec:
+  selector:
+    app.kubernetes.io/name: influxdb
+  ports:
+    - port: 8086
+      protocol: TCP
+      targetPort: influxdb-http
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: grafana-datasource-influxdb
+  namespace: influxdb
+  labels:
+    grafana_datasource: "1"
+stringData:
+  influxdb.yaml: |
+    apiVersion: 1
+
+    datasources:
+      - name: InfluxDB
+        type: influxdb
+        url: http://influxdb.influxdb.svc.cluster.local.:8086
+        jsonData:
+          version: Flux
+          organization: Maker Space
+          defaultBucket: Default
+          tlsSkipVerify: true
+        secureJsonData:
+          token: ref+sops://src/secrets.yml#/grafana_token
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: influxdb
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: influxdb-data
+  namespace: influxdb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
