@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: telemetry-feed
+  namespace: hoshiguma
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`hoshiguma-telemetry-feed.makerspace.dan-nixon.com`)
+      services:
+        - Kind: Service
+          name: telegraf-telemetry-feed
+          port: 8080
+  tls:
+    secretName: tls-cert
