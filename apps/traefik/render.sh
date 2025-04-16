@@ -12,6 +12,7 @@
     --repo https://helm.traefik.io/traefik \
     --version "35.0.0" \
     --namespace traefik \
+    --include-crds \
     --values src/values.yml
 
   cat src/k8s/*.yml
