@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: http
+  namespace: influxdb
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`influxdb.makerspace.dan-nixon.com`)
+      services:
+        - Kind: Service
+          name: influxdb
+          port: 8086
+  tls:
+    secretName: tls-cert
