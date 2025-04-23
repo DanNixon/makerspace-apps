@@ -16,3 +16,6 @@ sidecar:
   alerts:
     enabled: false
     searchNamespace: "ALL"
+
+persistence:
+  enabled: true
