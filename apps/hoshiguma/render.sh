@@ -7,5 +7,5 @@
   echo
 
   cat src/k8s/*.yml
-  # cat src/k8s/dashboards/*.yml
+  cat src/k8s/dashboards/*.yml
 } > rendered.yml
