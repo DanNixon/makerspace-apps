@@ -18,7 +18,7 @@ spec:
     name: letsencrypt-cloudflare-prod
     kind: ClusterIssuer
   dnsNames:
-    - hoshiguma-telemetry-feed.makerspace.dan-nixon.com
+    - hoshiguma-telemetry.makerspace.org.uk
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -103,7 +103,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`hoshiguma-telemetry-feed.makerspace.dan-nixon.com`)
+      match: Host(`hoshiguma-telemetry.makerspace.org.uk`)
       services:
         - Kind: Service
           name: telegraf-telemetry-feed
