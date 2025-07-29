@@ -14,4 +14,4 @@ spec:
     name: letsencrypt-cloudflare-prod
     kind: ClusterIssuer
   dnsNames:
-    - hoshiguma-telemetry-feed.makerspace.dan-nixon.com
+    - hoshiguma-telemetry.makerspace.org.uk
