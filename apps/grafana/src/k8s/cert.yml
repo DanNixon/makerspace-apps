@@ -14,4 +14,4 @@ spec:
     name: letsencrypt-cloudflare-prod
     kind: ClusterIssuer
   dnsNames:
-    - grafana.makerspace.dan-nixon.com
+    - grafana.makerspace.org.uk

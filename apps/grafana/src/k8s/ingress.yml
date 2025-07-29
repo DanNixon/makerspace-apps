@@ -10,7 +10,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`grafana.makerspace.dan-nixon.com`)
+      match: Host(`grafana.makerspace.org.uk`)
       services:
         - Kind: Service
           name: grafana
