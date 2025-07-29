@@ -19,6 +19,4 @@
     # Application tools
     influxdb2-cli
   ];
-
-  # env.KAPP_NAMESPACE = "kapp";
 }
