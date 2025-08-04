@@ -1,0 +1,8 @@
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: tunnel-token
+  namespace: cloudflare-tunnel
+stringData:
+  token: "ref+sops://src/secrets.yml#/tunnel_token"
