@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: cloudflared
-          image: docker.io/cloudflare/cloudflared:latest
+          image: docker.io/cloudflare/cloudflared:2025.7.0
           env:
             - name: TUNNEL_TOKEN
               valueFrom:
