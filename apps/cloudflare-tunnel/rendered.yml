@@ -18,6 +18,10 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: cloudflared
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "2000"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: cloudflared
