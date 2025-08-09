@@ -10,7 +10,7 @@
     prometheus \
     prometheus \
     --repo https://prometheus-community.github.io/helm-charts \
-    --version "27.8.0" \
+    --version "27.29.1" \
     --namespace monitoring-metrics \
     --values src/values.yml \
   | vals ksdecode -f -
