@@ -12,8 +12,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/part-of: kube-state-metrics
-    app.kubernetes.io/version: 2.15.0
-    helm.sh/chart: kube-state-metrics-5.31.0
+    app.kubernetes.io/version: 2.16.0
+    helm.sh/chart: kube-state-metrics-6.1.0
   name: prometheus-kube-state-metrics
   namespace: monitoring-metrics
 ---
@@ -27,8 +27,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/version: 1.9.0
-    helm.sh/chart: prometheus-node-exporter-4.45.0
+    app.kubernetes.io/version: 1.9.1
+    helm.sh/chart: prometheus-node-exporter-4.47.1
   name: prometheus-prometheus-node-exporter
   namespace: monitoring-metrics
 ---
@@ -41,8 +41,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
   namespace: monitoring-metrics
 ---
@@ -371,8 +371,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
   namespace: monitoring-metrics
 ---
@@ -384,8 +384,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
   namespace: monitoring-metrics
 spec:
@@ -404,8 +404,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/part-of: kube-state-metrics
-    app.kubernetes.io/version: 2.15.0
-    helm.sh/chart: kube-state-metrics-5.31.0
+    app.kubernetes.io/version: 2.16.0
+    helm.sh/chart: kube-state-metrics-6.1.0
   name: prometheus-kube-state-metrics
 rules:
   - apiGroups:
@@ -430,7 +430,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - extensions
       - apps
     resources:
       - daemonsets
@@ -438,7 +437,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - extensions
       - apps
     resources:
       - deployments
@@ -460,7 +458,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - extensions
       - networking.k8s.io
     resources:
       - ingresses
@@ -545,7 +542,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - extensions
       - apps
     resources:
       - replicasets
@@ -617,8 +613,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
 rules:
   - apiGroups:
@@ -637,7 +633,6 @@ rules:
       - list
       - watch
   - apiGroups:
-      - extensions
       - networking.k8s.io
     resources:
       - ingresses/status
@@ -668,8 +663,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/part-of: kube-state-metrics
-    app.kubernetes.io/version: 2.15.0
-    helm.sh/chart: kube-state-metrics-5.31.0
+    app.kubernetes.io/version: 2.16.0
+    helm.sh/chart: kube-state-metrics-6.1.0
   name: prometheus-kube-state-metrics
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -688,8 +683,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -711,8 +706,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/part-of: kube-state-metrics
-    app.kubernetes.io/version: 2.15.0
-    helm.sh/chart: kube-state-metrics-5.31.0
+    app.kubernetes.io/version: 2.16.0
+    helm.sh/chart: kube-state-metrics-6.1.0
   name: prometheus-kube-state-metrics
   namespace: monitoring-metrics
 spec:
@@ -737,8 +732,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/version: 1.9.0
-    helm.sh/chart: prometheus-node-exporter-4.45.0
+    app.kubernetes.io/version: 1.9.1
+    helm.sh/chart: prometheus-node-exporter-4.47.1
   name: prometheus-prometheus-node-exporter
   namespace: monitoring-metrics
 spec:
@@ -760,8 +755,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
   namespace: monitoring-metrics
 spec:
@@ -786,8 +781,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: prometheus-node-exporter
     app.kubernetes.io/part-of: prometheus-node-exporter
-    app.kubernetes.io/version: 1.9.0
-    helm.sh/chart: prometheus-node-exporter-4.45.0
+    app.kubernetes.io/version: 1.9.1
+    helm.sh/chart: prometheus-node-exporter-4.47.1
   name: prometheus-prometheus-node-exporter
   namespace: monitoring-metrics
 spec:
@@ -806,8 +801,8 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: prometheus-node-exporter
         app.kubernetes.io/part-of: prometheus-node-exporter
-        app.kubernetes.io/version: 1.9.0
-        helm.sh/chart: prometheus-node-exporter-4.45.0
+        app.kubernetes.io/version: 1.9.1
+        helm.sh/chart: prometheus-node-exporter-4.47.1
     spec:
       affinity:
         nodeAffinity:
@@ -833,14 +828,14 @@ spec:
           env:
             - name: HOST_IP
               value: 0.0.0.0
-          image: quay.io/prometheus/node-exporter:v1.9.0
+          image: quay.io/prometheus/node-exporter:v1.9.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
             httpGet:
               httpHeaders: null
               path: /
-              port: 9100
+              port: metrics
               scheme: HTTP
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -856,7 +851,7 @@ spec:
             httpGet:
               httpHeaders: null
               path: /
-              port: 9100
+              port: metrics
               scheme: HTTP
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -914,8 +909,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/part-of: kube-state-metrics
-    app.kubernetes.io/version: 2.15.0
-    helm.sh/chart: kube-state-metrics-5.31.0
+    app.kubernetes.io/version: 2.16.0
+    helm.sh/chart: kube-state-metrics-6.1.0
   name: prometheus-kube-state-metrics
   namespace: monitoring-metrics
 spec:
@@ -935,15 +930,15 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: kube-state-metrics
         app.kubernetes.io/part-of: kube-state-metrics
-        app.kubernetes.io/version: 2.15.0
-        helm.sh/chart: kube-state-metrics-5.31.0
+        app.kubernetes.io/version: 2.16.0
+        helm.sh/chart: kube-state-metrics-6.1.0
     spec:
       automountServiceAccountToken: true
       containers:
         - args:
             - --port=8080
             - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
-          image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.15.0
+          image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.16.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -978,6 +973,7 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+      dnsPolicy: ClusterFirst
       hostNetwork: false
       securityContext:
         fsGroup: 65534
@@ -996,8 +992,8 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/part-of: prometheus
-    app.kubernetes.io/version: v3.2.1
-    helm.sh/chart: prometheus-27.8.0
+    app.kubernetes.io/version: v3.5.0
+    helm.sh/chart: prometheus-27.29.1
   name: prometheus-server
   namespace: monitoring-metrics
 spec:
@@ -1018,15 +1014,15 @@ spec:
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/name: prometheus
         app.kubernetes.io/part-of: prometheus
-        app.kubernetes.io/version: v3.2.1
-        helm.sh/chart: prometheus-27.8.0
+        app.kubernetes.io/version: v3.5.0
+        helm.sh/chart: prometheus-27.29.1
     spec:
       containers:
         - args:
             - --watched-dir=/etc/config
             - --listen-address=0.0.0.0:8080
             - --reload-url=http://127.0.0.1:9090/-/reload
-          image: quay.io/prometheus-operator/prometheus-config-reloader:v0.81.0
+          image: quay.io/prometheus-operator/prometheus-config-reloader:v0.84.1
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
@@ -1057,7 +1053,7 @@ spec:
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
             - --web.enable-remote-write-receiver
-          image: quay.io/prometheus/prometheus:v3.2.1
+          image: quay.io/prometheus/prometheus:v3.5.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
