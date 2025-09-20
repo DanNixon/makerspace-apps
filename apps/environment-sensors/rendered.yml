@@ -68,12 +68,12 @@ metadata:
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: dashboard-temperatures
+  name: dashboard-environment-comms-room
   namespace: environment-sensors
   labels:
     grafana_dashboard: "1"
 data:
-  environment-sensors-temperature.json: |
+  environment-environment-comms-room.json: |
     {
       "annotations": {
         "list": [
@@ -225,11 +225,11 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"esphome_sensor_value\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\", \"id\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"node\"] == \"comms-room\")\n  |> filter(fn: (r) => r[\"_measurement\"] == \"esphome_sensor_value\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\", \"id\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
               "refId": "A"
             }
           ],
-          "title": "Comms. Room Temperatures",
+          "title": "Temperatures",
           "type": "timeseries"
         }
       ],
@@ -248,7 +248,7 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Environment: Temperatures",
+      "title": "Environment: Comms. Room",
       "uid": "aejqxf21cfqioa",
-      "version": 3
+      "version": 4
     }
