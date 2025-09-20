@@ -18,4 +18,8 @@ data:
 
     [[inputs.prometheus]]
       interval = "30s"
-      urls = ["http://192.168.8.204/metrics"]
+      urls = [
+        "http://192.168.8.204/metrics",
+        "http://192.168.8.196/metrics",
+        "http://192.168.8.79/metrics",
+      ]
