@@ -7,7 +7,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
 data:
-  environment-environment-comms-room.json: |
+  environment-comms-room.json: |
     {
       "annotations": {
         "list": [
