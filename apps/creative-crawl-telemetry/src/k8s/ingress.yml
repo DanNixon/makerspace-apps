@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: telemetry-feed
+  namespace: creative-crawl
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`creative-crawl-telemetry.makerspace.org.uk`)
+      services:
+        - Kind: Service
+          name: telegraf-telemetry-feed
+          port: 8080
+  tls:
+    secretName: tls-cert
