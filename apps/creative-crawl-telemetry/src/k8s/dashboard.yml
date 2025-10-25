@@ -60,6 +60,7 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
+                "axisSoftMin": 0,
                 "barAlignment": 0,
                 "barWidthFactor": 0.6,
                 "drawStyle": "line",
@@ -104,7 +105,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 13,
+            "h": 15,
             "w": 12,
             "x": 0,
             "y": 1
@@ -155,6 +156,7 @@ data:
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
+                "axisSoftMin": 0,
                 "barAlignment": 0,
                 "barWidthFactor": 0.6,
                 "drawStyle": "line",
@@ -199,7 +201,7 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 13,
+            "h": 15,
             "w": 12,
             "x": 12,
             "y": 1
@@ -286,7 +288,7 @@ data:
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 14
+            "y": 16
           },
           "id": 8,
           "options": {
@@ -325,7 +327,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 19
           },
           "id": 3,
           "panels": [],
@@ -396,7 +398,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 18
+            "y": 20
           },
           "id": 1,
           "options": {
@@ -490,7 +492,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 18
+            "y": 20
           },
           "id": 2,
           "options": {
@@ -528,12 +530,12 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-1h",
+        "from": "now-6h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Creative Crawl 2025 box",
       "uid": "df1xbg3n45fy8d",
-      "version": 1
+      "version": 2
     }
