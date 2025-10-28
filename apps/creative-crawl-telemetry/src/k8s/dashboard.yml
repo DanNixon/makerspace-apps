@@ -133,12 +133,79 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"talisman_trigger_count\")\n  |> keep(columns: [\"_time\", \"_value\", \"talisman\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"talisman_trigger_count\")\n  |> keep(columns: [\"_time\", \"_value\", \"talisman\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"mean\")",
               "refId": "A"
             }
           ],
           "title": "Talisman Triggers",
           "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 30,
+            "w": 12,
+            "x": 12,
+            "y": 1
+          },
+          "id": 9,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "frameIndex": 1,
+            "showHeader": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"story_select_count\")\n  |> keep(columns: [\"_value\", \"story\"])\n  |> group(columns: [\"story\"])\n  |> count(column: \"_value\")\n  |> rename(columns: {_value: \"count\"}) // Optionally rename for clarity\n  |> keep(columns: [\"story\", \"count\"]) // Only show story and count\n  |> group()\n  |> sort(columns: [\"count\"], desc: true)",
+              "refId": "A"
+            }
+          ],
+          "title": "Stories Played",
+          "type": "table"
         },
         {
           "datasource": {
@@ -203,8 +270,8 @@ data:
           "gridPos": {
             "h": 15,
             "w": 12,
-            "x": 12,
-            "y": 1
+            "x": 0,
+            "y": 16
           },
           "id": 7,
           "options": {
@@ -288,7 +355,7 @@ data:
             "h": 3,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 31
           },
           "id": 8,
           "options": {
@@ -327,7 +394,7 @@ data:
             "h": 1,
             "w": 24,
             "x": 0,
-            "y": 19
+            "y": 34
           },
           "id": 3,
           "panels": [],
@@ -398,7 +465,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 35
           },
           "id": 1,
           "options": {
@@ -492,7 +559,7 @@ data:
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 20
+            "y": 35
           },
           "id": 2,
           "options": {
@@ -530,12 +597,12 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-6h",
+        "from": "now-7d",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Creative Crawl 2025 box",
       "uid": "df1xbg3n45fy8d",
-      "version": 2
+      "version": 4
     }
