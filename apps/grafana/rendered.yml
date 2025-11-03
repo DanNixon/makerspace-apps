@@ -59,6 +59,9 @@ data:
   grafana.ini: |
     [analytics]
     check_for_updates = true
+    [auth.anonymous]
+    enabled = true
+    organization = Main Org.
     [grafana_net]
     url = https://grafana.net
     [log]
@@ -208,7 +211,7 @@ spec:
         app.kubernetes.io/instance: grafana
         app.kubernetes.io/version: "11.6.0"
       annotations:
-        checksum/config: 0e9cbd0ea8e24e32f7dfca5bab17a2ba05652642f0a09a4882833ae88e4cc4a3
+        checksum/config: 5e628cf9162acf6a0243283331b1af5eaf40d61155b48fe67c11d15b4908728b
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         kubectl.kubernetes.io/default-container: grafana
     spec:
