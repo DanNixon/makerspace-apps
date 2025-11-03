@@ -19,3 +19,8 @@ sidecar:
 
 persistence:
   enabled: true
+
+grafana.ini:
+  auth.anonymous:
+    enabled: true
+    organization: Main Org.
