@@ -68,8 +68,8 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 5,
-            "w": 7,
+            "h": 6,
+            "w": 4,
             "x": 0,
             "y": 0
           },
@@ -115,95 +115,6 @@ data:
               "color": {
                 "mode": "thresholds"
               },
-              "custom": {
-                "axisPlacement": "auto",
-                "fillOpacity": 70,
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineWidth": 0,
-                "spanNulls": false
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "Critical": {
-                      "color": "red",
-                      "index": 0
-                    },
-                    "Warn": {
-                      "color": "yellow",
-                      "index": 1
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 14,
-            "w": 17,
-            "x": 7,
-            "y": 0
-          },
-          "id": 3,
-          "options": {
-            "alignValue": "left",
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "mergeValues": true,
-            "rowHeight": 0.9,
-            "showValue": "auto",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.6.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"safety.monitors\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])",
-              "refId": "A"
-            }
-          ],
-          "title": "Monitors",
-          "type": "state-timeline"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
               "mappings": [
                 {
                   "options": {
@@ -232,13 +143,13 @@ data:
           },
           "gridPos": {
             "h": 6,
-            "w": 7,
-            "x": 0,
-            "y": 5
+            "w": 8,
+            "x": 4,
+            "y": 0
           },
           "id": 2,
           "options": {
-            "colorMode": "value",
+            "colorMode": "background_solid",
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
@@ -306,13 +217,13 @@ data:
           },
           "gridPos": {
             "h": 6,
-            "w": 7,
-            "x": 0,
-            "y": 11
+            "w": 6,
+            "x": 12,
+            "y": 0
           },
           "id": 6,
           "options": {
-            "colorMode": "value",
+            "colorMode": "background_solid",
             "graphMode": "area",
             "justifyMode": "auto",
             "orientation": "auto",
@@ -352,249 +263,6 @@ data:
               "color": {
                 "mode": "thresholds"
               },
-              "custom": {
-                "axisPlacement": "auto",
-                "fillOpacity": 70,
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineWidth": 0,
-                "spanNulls": false
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "Running": {
-                      "color": "orange",
-                      "index": 0
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 3,
-            "w": 17,
-            "x": 7,
-            "y": 14
-          },
-          "id": 5,
-          "options": {
-            "alignValue": "left",
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
-            },
-            "mergeValues": true,
-            "rowHeight": 0.9,
-            "showValue": "auto",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.6.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 3d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.machine_run\")\n  |> keep(columns: [\"_time\", \"_value\"])",
-              "refId": "A"
-            }
-          ],
-          "title": "Run Status",
-          "type": "state-timeline"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "celsius"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "flow"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Flow"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "blue",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "return"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Return"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "red",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 14,
-            "w": 24,
-            "x": 0,
-            "y": 17
-          },
-          "id": 1,
-          "options": {
-            "legend": {
-              "calcs": [
-                "mean",
-                "max",
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "11.6.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_flow\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-              "refId": "flow"
-            },
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "hide": false,
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_return\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-              "refId": "return"
-            }
-          ],
-          "title": "Tube Temperature",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "axisPlacement": "auto",
-                "fillOpacity": 70,
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineWidth": 0,
-                "spanNulls": false
-              },
               "mappings": [
                 {
                   "options": {
@@ -602,17 +270,9 @@ data:
                       "color": "orange",
                       "index": 0
                     },
-                    "Enable": {
-                      "color": "green",
-                      "index": 3
-                    },
                     "Idle": {
                       "color": "blue",
                       "index": 1
-                    },
-                    "Inhibit": {
-                      "color": "red",
-                      "index": 2
                     }
                   },
                   "type": "value"
@@ -622,11 +282,7 @@ data:
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
+                    "color": "purple"
                   }
                 ]
               }
@@ -659,27 +315,28 @@ data:
             ]
           },
           "gridPos": {
-            "h": 4,
-            "w": 24,
-            "x": 0,
-            "y": 31
+            "h": 3,
+            "w": 6,
+            "x": 18,
+            "y": 0
           },
-          "id": 8,
+          "id": 11,
           "options": {
-            "alignValue": "left",
-            "legend": {
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": false
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Value$/",
+              "values": false
             },
-            "mergeValues": true,
-            "rowHeight": 0.9,
-            "showValue": "auto",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
           "pluginVersion": "11.6.0",
           "targets": [
@@ -688,8 +345,177 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 3d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cooling.enable\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "hide": false,
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cooling.demand\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "refId": "demand"
+            }
+          ],
+          "title": "Cooling",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "Idle": {
+                      "color": "red",
+                      "index": 0
+                    },
+                    "Run": {
+                      "color": "green",
+                      "index": 1
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 6,
+            "x": 18,
+            "y": 3
+          },
+          "id": 8,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^Value$/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"control.fume_extraction_fan\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "enable"
+            }
+          ],
+          "title": "Fume Extraction Fan",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 40,
+              "min": 10,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue"
+                  },
+                  {
+                    "color": "green",
+                    "value": 15
+                  },
+                  {
+                    "color": "red",
+                    "value": 30
+                  }
+                ]
+              },
+              "unit": "celsius"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "flow"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Flow"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byFrameRefID",
+                  "options": "return"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Return"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 9,
+            "x": 0,
+            "y": 6
+          },
+          "id": 1,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_flow\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "refId": "flow"
             },
             {
               "datasource": {
@@ -697,12 +523,12 @@ data:
                 "uid": "P951FEA4DE68E13C5"
               },
               "hide": false,
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 3d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cooling.demand\")\n  |> keep(columns: [\"_time\", \"_value\"])",
-              "refId": "demand"
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_return\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "return"
             }
           ],
-          "title": "Cooling",
-          "type": "state-timeline"
+          "title": "Tube Temperature",
+          "type": "gauge"
         },
         {
           "datasource": {
@@ -712,51 +538,24 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
+                "mode": "thresholds"
               },
               "mappings": [],
+              "max": 30,
+              "min": 10,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "blue"
+                  },
+                  {
+                    "color": "green",
+                    "value": 15
                   },
                   {
                     "color": "red",
-                    "value": 80
+                    "value": 20
                   }
                 ]
               },
@@ -765,28 +564,26 @@ data:
             "overrides": []
           },
           "gridPos": {
-            "h": 14,
-            "w": 12,
-            "x": 0,
-            "y": 35
+            "h": 9,
+            "w": 5,
+            "x": 9,
+            "y": 6
           },
           "id": 7,
           "options": {
-            "legend": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
               "calcs": [
-                "mean",
-                "max",
                 "lastNotNull"
               ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
+              "fields": "",
+              "values": false
             },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
           },
           "pluginVersion": "11.6.0",
           "targets": [
@@ -795,12 +592,12 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"source\"] == \"cooler\")\n  |> filter(fn: (r) => r[\"_field\"] =~ /reservoir_*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"source\"] == \"cooler\")\n  |> filter(fn: (r) => r[\"_field\"] =~ /reservoir_*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])",
               "refId": "A"
             }
           ],
           "title": "Coolant Temperature",
-          "type": "timeseries"
+          "type": "gauge"
         },
         {
           "datasource": {
@@ -810,81 +607,48 @@ data:
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
+                "mode": "thresholds"
               },
               "mappings": [],
+              "max": 8,
+              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "red"
                   },
                   {
-                    "color": "red",
-                    "value": 80
+                    "color": "green",
+                    "value": 4.5
                   }
                 ]
               },
-              "unit": "celsius"
+              "unit": "flowlpm"
             },
             "overrides": []
           },
           "gridPos": {
-            "h": 14,
-            "w": 12,
-            "x": 12,
-            "y": 35
+            "h": 9,
+            "w": 5,
+            "x": 14,
+            "y": 6
           },
-          "id": 9,
+          "id": 12,
           "options": {
-            "legend": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
               "calcs": [
-                "mean",
-                "max",
                 "lastNotNull"
               ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
+              "fields": "",
+              "values": false
             },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "multi",
-              "sort": "none"
-            }
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
           },
           "pluginVersion": "11.6.0",
           "targets": [
@@ -893,12 +657,155 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.extraction_airflow_suction\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.coolant_flow\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])",
+              "refId": "A"
+            }
+          ],
+          "title": "Coolant Flow",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "max": 150,
+              "min": 0,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red"
+                  },
+                  {
+                    "color": "green",
+                    "value": 100
+                  }
+                ]
+              },
+              "unit": "pressurepa"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 5,
+            "x": 19,
+            "y": 6
+          },
+          "id": 9,
+          "options": {
+            "minVizHeight": 75,
+            "minVizWidth": 75,
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true,
+            "sizing": "auto"
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.extraction_airflow_suction\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
               "refId": "A"
             }
           ],
           "title": "Fume Extraction Airflow Suction",
-          "type": "timeseries"
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "Critical": {
+                      "color": "red",
+                      "index": 0
+                    },
+                    "Normal": {
+                      "color": "green",
+                      "index": 1
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 10,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "percentChangeColorMode": "standard",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/.*/",
+              "values": false
+            },
+            "showPercentChange": false,
+            "textMode": "value_and_name",
+            "wideLayout": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"safety.monitors\")\n  |> keep(columns: [\"_value\", \"_field\"])",
+              "refId": "A"
+            }
+          ],
+          "title": "Monitors",
+          "type": "stat"
         }
       ],
       "preload": false,
@@ -914,9 +821,16 @@ data:
         "from": "now-30m",
         "to": "now"
       },
-      "timepicker": {},
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m"
+        ]
+      },
       "timezone": "browser",
       "title": "Hoshiguma: Overview",
       "uid": "aejqxecl8fqioa",
-      "version": 1
+      "version": 6
     }

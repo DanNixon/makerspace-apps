@@ -695,7 +695,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.coolant_flow\")\n  |> filter(fn: (r) => r[\"_measurement\"] =~ /observation.*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_measurement\"])",
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.extraction_airflow_sensor_temperature\")\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.extraction_airflow_suction\")\n  |> filter(fn: (r) => r[\"_measurement\"] != \"observation.coolant_flow\")\n  |> filter(fn: (r) => r[\"_measurement\"] =~ /observation.*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_measurement\"])",
               "refId": "A"
             }
           ],
@@ -831,12 +831,12 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-30m",
+        "from": "now-3h",
         "to": "now"
       },
       "timepicker": {},
       "timezone": "browser",
       "title": "Hoshiguma: Diagnostics",
       "uid": "dejsskmjc6ps0b",
-      "version": 1
+      "version": 2
     }
