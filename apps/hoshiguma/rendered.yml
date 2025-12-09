@@ -3,48 +3,10 @@
 #
 
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: tls-cert
-  namespace: hoshiguma
-spec:
-  secretName: tls-cert
-  duration: 2160h # 90d
-  renewBefore: 720h # 30d
-  privateKey:
-    rotationPolicy: Always
-  issuerRef:
-    name: letsencrypt-cloudflare-prod
-    kind: ClusterIssuer
-  dnsNames:
-    - hoshiguma-telemetry.makerspace.org.uk
----
 apiVersion: v1
-kind: ConfigMap
+kind: Namespace
 metadata:
-  name: telegraf
-  namespace: hoshiguma
-data:
-  telegraf.conf: |
-    [agent]
-      debug = true
-      quiet = false
-
-    [[outputs.influxdb_v2]]
-      bucket = "Hoshiguma"
-      organization = "Maker Space"
-      token = "ref+sops://src/secrets.yml#/influx_token"
-      urls = ["http://influxdb.influxdb.svc.cluster.local.:8086"]
-
-    [[inputs.http_listener_v2]]
-      data_format = "influx"
-      service_address = "tcp://:8080"
-      paths = ["/"]
-      methods = ["POST"]
-      http_success_code = 204
-      basic_username = "hoshiguma"
-      basic_password = "ref+sops://src/secrets.yml#/http_password"
+  name: hoshiguma
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -80,6 +42,33 @@ spec:
 
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf
+  namespace: hoshiguma
+data:
+  telegraf.conf: |
+    [agent]
+      debug = true
+      quiet = false
+
+    [[outputs.influxdb_v2]]
+      bucket = "Hoshiguma"
+      organization = "Maker Space"
+      token = "ref+sops://src/secrets.yml#/influx_token"
+      urls = ["http://influxdb.influxdb.svc.cluster.local.:8086"]
+
+    [[inputs.http_listener_v2]]
+      data_format = "influx"
+      service_address = "tcp://:8080"
+      paths = ["/hoshiguma"]
+      methods = ["POST"]
+      http_success_code = 204
+      basic_username = "hoshiguma"
+      basic_password = "ref+sops://src/secrets.yml#/http_password"
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: telegraf-telemetry-feed
@@ -91,6 +80,7 @@ spec:
     - port: 8080
       protocol: TCP
       targetPort: http
+
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -103,18 +93,31 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`hoshiguma-telemetry.makerspace.org.uk`)
+      match: Host(`telemetry.makerspace.org.uk`) && PathPrefix(`/hoshiguma`)
       services:
         - Kind: Service
           name: telegraf-telemetry-feed
           port: 8080
   tls:
     secretName: tls-cert
+
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: hoshiguma
+  name: tls-cert
+  namespace: hoshiguma
+spec:
+  secretName: tls-cert
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+  privateKey:
+    rotationPolicy: Always
+  issuerRef:
+    name: letsencrypt-cloudflare-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - telemetry.makerspace.org.uk
 ---
 kind: ConfigMap
 apiVersion: v1
