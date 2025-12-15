@@ -3,58 +3,643 @@
 #
 
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: tls-cert
-  namespace: creative-crawl
-spec:
-  secretName: tls-cert
-  duration: 2160h # 90d
-  renewBefore: 720h # 30d
-  privateKey:
-    rotationPolicy: Always
-  issuerRef:
-    name: letsencrypt-cloudflare-prod
-    kind: ClusterIssuer
-  dnsNames:
-    - creative-crawl-telemetry.makerspace.org.uk
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: telegraf
-  namespace: creative-crawl
-data:
-  telegraf.conf: |
-    [agent]
-      debug = true
-      quiet = false
-
-    [[outputs.influxdb_v2]]
-      bucket = "Creative Crawl 2025"
-      organization = "Maker Space"
-      token = "ref+sops://src/secrets.yml#/influx_token"
-      urls = ["http://influxdb.influxdb.svc.cluster.local.:8086"]
-
-    [[inputs.http_listener_v2]]
-      data_format = "influx"
-      service_address = "tcp://:8080"
-      paths = ["/"]
-      methods = ["POST"]
-      http_success_code = 204
-      basic_username = "creative-crawl-2025"
-      basic_password = "ref+sops://src/secrets.yml#/http_password"
----
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: dashboard
+  name: dashboard-2025-christmas
   namespace: creative-crawl
   labels:
     grafana_dashboard: "1"
 data:
-  crative-crawl-2025.json: |
+  crative-crawl-christmas-2025.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": 55,
+      "links": [],
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 5,
+          "panels": [],
+          "title": "Usage",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 12,
+            "x": 0,
+            "y": 1
+          },
+          "id": 6,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"talisman_trigger_count\")\n  |> keep(columns: [\"_time\", \"_value\", \"talisman\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Talisman Triggers",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 30,
+            "w": 12,
+            "x": 12,
+            "y": 1
+          },
+          "id": 9,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "frameIndex": 1,
+            "showHeader": true
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"story_select_count\")\n  |> keep(columns: [\"_value\", \"story\"])\n  |> group(columns: [\"story\"])\n  |> count(column: \"_value\")\n  |> rename(columns: {_value: \"count\"}) // Optionally rename for clarity\n  |> keep(columns: [\"story\", \"count\"]) // Only show story and count\n  |> group()\n  |> sort(columns: [\"count\"], desc: true)",
+              "refId": "A"
+            }
+          ],
+          "title": "Stories Played",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "axisSoftMin": 0,
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "stepAfter",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 12,
+            "x": 0,
+            "y": 16
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"story_select_count\")\n  |> keep(columns: [\"_time\", \"_value\", \"story\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Stories Played",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "0": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "Closed"
+                    },
+                    "1": {
+                      "color": "yellow",
+                      "index": 0,
+                      "text": "Open"
+                    }
+                  },
+                  "type": "value"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 31
+          },
+          "id": 8,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"door_opened\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "refId": "A"
+            }
+          ],
+          "title": "Door",
+          "type": "timeseries"
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 37
+          },
+          "id": 3,
+          "panels": [],
+          "title": "Diagnostics",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 38
+          },
+          "id": 1,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"uptime_ms\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Uptime",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ms"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 38
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": false
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Creative Crawl 2025\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"network_config_age_ms\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Network Configuration Age",
+          "type": "timeseries"
+        }
+      ],
+      "preload": false,
+      "schemaVersion": 41,
+      "tags": [],
+      "templating": {
+        "list": []
+      },
+      "time": {
+        "from": "now-24h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "browser",
+      "title": "Creative Crawl Christmas 2025 box",
+      "uid": "cf76snzio91j4c",
+      "version": 2
+    }
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: dashboard-2025-halloween
+  namespace: creative-crawl
+  labels:
+    grafana_dashboard: "1"
+data:
+  crative-crawl-halloween-2025.json: |
     {
       "annotations": {
         "list": [
@@ -649,10 +1234,15 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Creative Crawl 2025 box",
+      "title": "Creative Crawl Halloween 2025 box",
       "uid": "df1xbg3n45fy8d",
       "version": 4
     }
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: creative-crawl
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -673,7 +1263,7 @@ spec:
     spec:
       containers:
         - name: telegraf
-          image: "docker.io/library/telegraf:1.34-alpine"
+          image: "docker.io/library/telegraf:1.35-alpine"
           ports:
             - name: http
               containerPort: 8080
@@ -688,6 +1278,34 @@ spec:
 
 ---
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegraf
+  namespace: creative-crawl
+data:
+  telegraf.conf: |
+    [agent]
+      debug = true
+      quiet = false
+
+    [[outputs.influxdb_v2]]
+      bucket = "Creative Crawl 2025"
+      organization = "Maker Space"
+      token = "ref+sops://src/secrets.yml#/influx_token"
+      urls = ["http://influxdb.influxdb.svc.cluster.local.:8086"]
+
+    [[inputs.http_listener_v2]]
+      service_address = "tcp://:8080"
+      paths = ["/ms-creative-crawl-box-christmas"]
+      path_tag = true
+      methods = ["POST"]
+      http_success_code = 204
+      data_format = "prometheus"
+      basic_username = "creative-crawl-box"
+      basic_password = "ref+sops://src/secrets.yml#/telegraf_password"
+
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: telegraf-telemetry-feed
@@ -699,6 +1317,7 @@ spec:
     - port: 8080
       protocol: TCP
       targetPort: http
+
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -711,15 +1330,28 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`creative-crawl-telemetry.makerspace.org.uk`)
+      match: Host(`telemetry.makerspace.org.uk`) && PathPrefix(`/ms-creative-crawl-box-christmas`)
       services:
         - Kind: Service
           name: telegraf-telemetry-feed
           port: 8080
   tls:
     secretName: tls-cert
+
 ---
-apiVersion: v1
-kind: Namespace
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: creative-crawl
+  name: tls-cert
+  namespace: creative-crawl
+spec:
+  secretName: tls-cert
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+  privateKey:
+    rotationPolicy: Always
+  issuerRef:
+    name: letsencrypt-cloudflare-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - telemetry.makerspace.org.uk
