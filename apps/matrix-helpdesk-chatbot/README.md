@@ -2,6 +2,8 @@
 
 Answers your Maker Space related questions, so people do not have to.
 
+Will respond in any room it is in (including DMs) and will automatically accept any room or DM invites.
+
 Uses [matrix-openrouter-helpdesk](https://github.com/DanNixon/matrix-openrouter-helpdesk), with web enabled [`gpt-5-nano`](https://openrouter.ai/openai/gpt-5-nano).
 
 The system prompts is:
