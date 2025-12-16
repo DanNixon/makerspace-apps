@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: chatbot
-          image: ghcr.io/dannixon/matrix-openrouter-helpdesk:7e86cabb8ecf337eafbd75b45a3aefbacd22b062
+          image: ghcr.io/dannixon/matrix-openrouter-helpdesk:a6d0ced9d79fa6e65d82f2acdabb4bbf06d5283f
           env:
             - name: MATRIX_HOMESERVER_URL
               value: https://matrix.org
