@@ -14,16 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v16
-        with:
-          name: devenv
-      - name: Install devenv.sh
-        run: nix profile install nixpkgs#devenv
+      - uses: DeterminateSystems/nix-installer-action@v21
 
       - name: Check code formatting
-        shell: devenv shell bash -- -e {0}
-        run: treefmt --fail-on-change
+        run: nix develop --command treefmt --fail-on-change
 
 
   render-manifests:
@@ -34,19 +28,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: cachix/install-nix-action@v31
-      - uses: cachix/cachix-action@v16
-        with:
-          name: devenv
-      - name: Install devenv.sh
-        run: nix profile install nixpkgs#devenv
+      - uses: DeterminateSystems/nix-installer-action@v21
 
       - name: Render all manifests
-        shell: devenv shell bash -- -e {0}
         run: |
           cd ./apps
-          ./render.sh
+          nix develop --command ./render.sh
 
       - name: Check committed manifests are up to date
-        shell: devenv shell bash -- -e {0}
         run: git diff --exit-code
