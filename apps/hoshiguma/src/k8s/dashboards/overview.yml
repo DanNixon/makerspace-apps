@@ -28,7 +28,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
-      "id": 53,
+      "id": 59,
       "links": [],
       "panels": [
         {
@@ -44,9 +44,15 @@ data:
               "mappings": [
                 {
                   "options": {
-                    "Off": {
+                    "off": {
                       "color": "red",
-                      "index": 0
+                      "index": 0,
+                      "text": "Off"
+                    },
+                    "on": {
+                      "color": "green",
+                      "index": 1,
+                      "text": "On"
                     }
                   },
                   "type": "value"
@@ -98,7 +104,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.machine_power\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"machine_power\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "A"
             }
           ],
@@ -118,9 +124,10 @@ data:
               "mappings": [
                 {
                   "options": {
-                    "Denied": {
+                    "denied": {
                       "color": "red",
-                      "index": 0
+                      "index": 0,
+                      "text": "Denied"
                     }
                   },
                   "type": "value"
@@ -172,7 +179,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"safety.lockout\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"machine_lockout\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "A"
             }
           ],
@@ -192,9 +199,15 @@ data:
               "mappings": [
                 {
                   "options": {
-                    "Running": {
+                    "idle": {
+                      "color": "blue",
+                      "index": 1,
+                      "text": "Idle"
+                    },
+                    "running": {
                       "color": "orange",
-                      "index": 0
+                      "index": 0,
+                      "text": "Running"
                     }
                   },
                   "type": "value"
@@ -246,7 +259,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 3d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.machine_run\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 3d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"machine_run\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "A"
             }
           ],
@@ -346,7 +359,7 @@ data:
                 "uid": "P951FEA4DE68E13C5"
               },
               "hide": false,
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cooling.demand\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"cooling_demand\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "demand"
             }
           ],
@@ -366,13 +379,15 @@ data:
               "mappings": [
                 {
                   "options": {
-                    "Idle": {
+                    "idle": {
                       "color": "red",
-                      "index": 0
+                      "index": 0,
+                      "text": "Idle"
                     },
-                    "Run": {
+                    "run": {
                       "color": "green",
-                      "index": 1
+                      "index": 1,
+                      "text": "Run"
                     }
                   },
                   "type": "value"
@@ -420,7 +435,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"control.fume_extraction_fan\")\n  |> keep(columns: [\"_time\", \"_value\"])",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"fume_extraction_fan\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "enable"
             }
           ],
@@ -461,8 +476,8 @@ data:
             "overrides": [
               {
                 "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "flow"
+                  "id": "byName",
+                  "options": "coolant_flow"
                 },
                 "properties": [
                   {
@@ -473,8 +488,8 @@ data:
               },
               {
                 "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "return"
+                  "id": "byName",
+                  "options": "coolant_return"
                 },
                 "properties": [
                   {
@@ -482,12 +497,24 @@ data:
                     "value": "Return"
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "coolant_reservoir"
+                },
+                "properties": [
+                  {
+                    "id": "displayName",
+                    "value": "Reservoir"
+                  }
+                ]
               }
             ]
           },
           "gridPos": {
             "h": 9,
-            "w": 9,
+            "w": 14,
             "x": 0,
             "y": 6
           },
@@ -514,89 +541,11 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_flow\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])",
-              "refId": "flow"
-            },
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "hide": false,
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"coolant_return\")\n  |> filter(fn: (r) => r[\"source\"] == \"peripheral_controller\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-              "refId": "return"
-            }
-          ],
-          "title": "Tube Temperature",
-          "type": "gauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "max": 30,
-              "min": 10,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  },
-                  {
-                    "color": "green",
-                    "value": 15
-                  },
-                  {
-                    "color": "red",
-                    "value": 20
-                  }
-                ]
-              },
-              "unit": "celsius"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 5,
-            "x": 9,
-            "y": 6
-          },
-          "id": 7,
-          "options": {
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
-          },
-          "pluginVersion": "11.6.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "P951FEA4DE68E13C5"
-              },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.temperature\")\n  |> filter(fn: (r) => r[\"source\"] == \"cooler\")\n  |> filter(fn: (r) => r[\"_field\"] =~ /reservoir_*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> filter(fn: (r) => (r[\"sensor\"] == \"coolant_flow\" or r[\"sensor\"] == \"coolant_return\" or r[\"sensor\"] == \"coolant_reservoir\"))\n  |> keep(columns: [\"_time\", \"_value\", \"sensor\"])",
               "refId": "A"
             }
           ],
-          "title": "Coolant Temperature",
+          "title": "Temperatures",
           "type": "gauge"
         },
         {
@@ -657,7 +606,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.coolant_flow\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"coolant_rate\")\n  |> keep(columns: [\"_time\", \"_value\"])",
               "refId": "A"
             }
           ],
@@ -722,7 +671,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"observation.extraction_airflow_suction\")\n  |> keep(columns: [\"_time\", \"_value\", \"_field\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
+              "query": "from(bucket: \"Hoshiguma\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"fume_extraction_airflow\")\n  |> filter(fn: (r) => r[\"_field\"] == \"value\")\n  |> keep(columns: [\"_time\", \"_value\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)",
               "refId": "A"
             }
           ],
@@ -742,13 +691,20 @@ data:
               "mappings": [
                 {
                   "options": {
-                    "Critical": {
+                    "critical": {
                       "color": "red",
-                      "index": 0
+                      "index": 0,
+                      "text": "Critical"
                     },
-                    "Normal": {
+                    "information": {
+                      "color": "blue",
+                      "index": 2,
+                      "text": "Information"
+                    },
+                    "normal": {
                       "color": "green",
-                      "index": 1
+                      "index": 1,
+                      "text": "Normal"
                     }
                   },
                   "type": "value"
@@ -800,7 +756,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"safety.monitors\")\n  |> keep(columns: [\"_value\", \"_field\"])",
+              "query": "import \"date\"\n\nfrom(bucket: \"Hoshiguma\")\n  |> range(start: date.sub(d: 1d, from: v.timeRangeStart), stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"monitor_state\")\n  |> keep(columns: [\"_value\", \"monitor\"])",
               "refId": "A"
             }
           ],
@@ -818,7 +774,7 @@ data:
         "list": []
       },
       "time": {
-        "from": "now-30m",
+        "from": "now-15m",
         "to": "now"
       },
       "timepicker": {
@@ -832,5 +788,5 @@ data:
       "timezone": "browser",
       "title": "Hoshiguma: Overview",
       "uid": "aejqxecl8fqioa",
-      "version": 6
+      "version": 2
     }
