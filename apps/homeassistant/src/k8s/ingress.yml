@@ -1,0 +1,36 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tls-cert
+  namespace: homeassistant
+spec:
+  secretName: tls-cert
+  duration: 2160h # 90d
+  renewBefore: 720h # 30d
+  privateKey:
+    rotationPolicy: Always
+  issuerRef:
+    name: letsencrypt-cloudflare-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - homeassistant.makerspace.org.uk
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: https
+  namespace: homeassistant
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`homeassistant.makerspace.org.uk`)
+      services:
+        - Kind: Service
+          name: homeassistant
+          port: http
+  tls:
+    secretName: tls-cert
