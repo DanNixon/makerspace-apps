@@ -7,11 +7,11 @@
   echo
 
   helm template \
-    prometheus \
-    prometheus \
-    --repo https://prometheus-community.github.io/helm-charts \
-    --version "27.29.1" \
-    --namespace monitoring-metrics \
+    k8s-monitoring \
+    k8s-monitoring \
+    --repo https://grafana.github.io/helm-charts \
+    --version "3.8.0" \
+    --namespace monitoring \
     --values src/values.yml \
   | vals ksdecode -f -
 
