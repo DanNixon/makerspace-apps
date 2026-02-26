@@ -1,0 +1,44 @@
+---
+cluster:
+  name: makerspace-on-prem
+
+destinations:
+  - name: grafana-cloud-prometheus
+    type: prometheus
+    url: https://prometheus-prod-55-prod-gb-south-1.grafana.net/api/prom/push
+    auth:
+      type: basic
+      username: "2973100"
+      password: "ref+sops://src/secrets.yml#/grafana_cloud_token"
+
+  - name: grafana-cloud-loki
+    type: loki
+    url: https://logs-prod-035.grafana.net/loki/api/v1/push
+    auth:
+      type: basic
+      username: "1482225"
+      password: "ref+sops://src/secrets.yml#/grafana_cloud_token"
+
+annotationAutodiscovery:
+  enabled: true
+  annotations:
+    scrape: prometheus.io/scrape
+    metricsScheme: prometheus.io/scheme
+    metricsPath: prometheus.io/path
+    metricsPortNumber: prometheus.io/port
+
+nodeLogs:
+  enabled: true
+podLogs:
+  enabled: true
+clusterEvents:
+  enabled: true
+clusterMetrics:
+  enabled: true
+
+alloy-metrics:
+  enabled: true
+alloy-logs:
+  enabled: true
+alloy-singleton:
+  enabled: true
