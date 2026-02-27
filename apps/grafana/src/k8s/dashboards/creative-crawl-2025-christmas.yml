@@ -3,11 +3,11 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: dashboard-2025-christmas
-  namespace: creative-crawl
+  namespace: grafana
   labels:
     grafana_dashboard: "1"
 data:
-  crative-crawl-christmas-2025.json: |
+  creative-crawl-christmas-2025.json: |
     {
       "annotations": {
         "list": [

@@ -2,12 +2,12 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: dashboard-environment-vane
-  namespace: environment-sensors
+  name: dashboard-environment-basement
+  namespace: grafana
   labels:
     grafana_dashboard: "1"
 data:
-  environment-vane.json: |
+  environment-basement.json: |
     {
       "annotations": {
         "list": [
@@ -28,7 +28,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": 17,
+      "id": 47,
       "links": [],
       "panels": [
         {
@@ -89,47 +89,10 @@ data:
               },
               "unit": "celsius"
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge board_temperature"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Board"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge temperature_1"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Sensor 1"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge temperature_2"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Sensor 2"
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
-            "h": 11,
+            "h": 10,
             "w": 24,
             "x": 0,
             "y": 0
@@ -159,7 +122,7 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"node\"] =~ /vane-.*/)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"esphome_sensor_value\")\n  |> filter(fn: (r) => r[\"unit\"] == \"°C\")\n  |> keep(columns: [\"_time\", \"_value\", \"node\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"temperature\")\n  |> filter(fn: (r) => r[\"node\"] =~ /basement-.*/)\n  |> keep(columns: [\"_time\", \"_value\", \"node\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
               "refId": "A"
             }
           ],
@@ -224,50 +187,13 @@ data:
               },
               "unit": "humidity"
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge board_temperature"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Board"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge temperature_1"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Sensor 1"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "gauge temperature_2"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "Sensor 2"
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
-            "h": 11,
+            "h": 10,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 10
           },
           "id": 3,
           "options": {
@@ -294,11 +220,109 @@ data:
                 "type": "influxdb",
                 "uid": "P951FEA4DE68E13C5"
               },
-              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"node\"] =~ /vane-.*/)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"esphome_sensor_value\")\n  |> filter(fn: (r) => r[\"unit\"] == \"%\")\n  |> keep(columns: [\"_time\", \"_value\", \"node\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] == \"humidity\")\n  |> filter(fn: (r) => r[\"node\"] =~ /basement-.*/)\n  |> keep(columns: [\"_time\", \"_value\", \"node\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
               "refId": "A"
             }
           ],
           "title": "Humidity",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P951FEA4DE68E13C5"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "barWidthFactor": 0.6,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "conμgm3"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "max",
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "hideZeros": false,
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "11.6.0",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "P951FEA4DE68E13C5"
+              },
+              "query": "from(bucket: \"Environment\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"prometheus\")\n  |> filter(fn: (r) => r[\"_field\"] =~ /pm_.*/)\n  |> filter(fn: (r) => r[\"node\"] =~ /basement-.*/)\n  |> keep(columns: [\"_time\", \"_value\", \"_field\", \"node\"])\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+              "refId": "A"
+            }
+          ],
+          "title": "Particulate Matter",
           "type": "timeseries"
         }
       ],
@@ -316,7 +340,7 @@ data:
       },
       "timepicker": {},
       "timezone": "browser",
-      "title": "Environment: Vane",
-      "uid": "cezqvumugbgg0e",
-      "version": 3
+      "title": "Environment: Basement",
+      "uid": "df303w9eb979cb",
+      "version": 2
     }
