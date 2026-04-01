@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@v21
+      - uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Check code formatting
         run: nix develop --command treefmt --fail-on-change
@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@v21
+      - uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Render all manifests
         run: |
