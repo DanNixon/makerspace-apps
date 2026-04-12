@@ -2,43 +2,76 @@
 cluster:
   name: makerspace-on-prem
 
+global:
+  scrapeInterval: 15s
+
 destinations:
-  - name: grafana-cloud-prometheus
+  cloud-prometheus:
     type: prometheus
-    url: https://prometheus-prod-55-prod-gb-south-1.grafana.net/api/prom/push
+    url: https://prometheus.dan-nixon.com/write
     auth:
       type: basic
-      username: "2973100"
-      password: "ref+sops://src/secrets.yml#/grafana_cloud_token"
+      username: makerspace-k8s
+      password: ref+sops://src/secrets.yml#/prometheus_password
 
-  - name: grafana-cloud-loki
+  grafana-cloud-loki:
     type: loki
     url: https://logs-prod-035.grafana.net/loki/api/v1/push
     auth:
       type: basic
-      username: "1482225"
-      password: "ref+sops://src/secrets.yml#/grafana_cloud_token"
+      username: '1482225'
+      password: ref+sops://src/secrets.yml#/grafana_cloud_token
+
+collectors:
+  alloy-metrics:
+    presets:
+      - clustered
+      - statefulset
+
+  alloy-logs:
+    presets:
+      - filesystem-log-reader
+      - daemonset
+
+  alloy-singleton:
+    presets:
+      - singleton
 
 annotationAutodiscovery:
   enabled: true
+  collector: alloy-metrics
   annotations:
     scrape: prometheus.io/scrape
     metricsScheme: prometheus.io/scheme
     metricsPath: prometheus.io/path
     metricsPortNumber: prometheus.io/port
 
-nodeLogs:
+hostMetrics:
   enabled: true
-podLogs:
-  enabled: true
-clusterEvents:
-  enabled: true
+  collector: alloy-metrics
+  linuxHosts:
+    enabled: true
+    metricsTuning:
+      useIntegrationAllowList: true
+
 clusterMetrics:
   enabled: true
+  collector: alloy-metrics
 
-alloy-metrics:
+clusterEvents:
   enabled: true
-alloy-logs:
+  collector: alloy-singleton
+
+nodeLogs:
   enabled: true
-alloy-singleton:
+  collector: alloy-logs
+
+podLogsViaLoki:
   enabled: true
+  collector: alloy-logs
+
+telemetryServices:
+  node-exporter:
+    deploy: true
+  kube-state-metrics:
+    deploy: true
