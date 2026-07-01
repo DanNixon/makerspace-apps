@@ -56,7 +56,7 @@ data:
       bucket = "Hoshiguma"
       organization = "Maker Space"
       token = "ref+sops://src/secrets.yml#/influx_token"
-      urls = ["http://influxdb.influxdb.svc.cluster.local.:8086"]
+      urls = ["https://eu-central-1-1.aws.cloud2.influxdata.com"]
 
     [[inputs.http_listener_v2]]
       data_format = "influx"
